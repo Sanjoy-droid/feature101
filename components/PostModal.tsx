@@ -71,10 +71,14 @@ export default function PostModal({ post, onClose, onSubmit }: PostModalProps) {
           </div>
 
           <div className="flex gap-3 pt-4">
-            <Button onClick={handleSubmit} className="flex-1">
+            <Button onClick={handleSubmit} className="flex-1 cursor-pointer">
               {post ? "Update Post" : "Create Post"}
             </Button>
-            <Button onClick={onClose} variant="outline">
+            <Button
+              className="cursor-pointer"
+              onClick={onClose}
+              variant="outline"
+            >
               Cancel
             </Button>
           </div>

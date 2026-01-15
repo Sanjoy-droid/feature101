@@ -19,29 +19,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         {children}
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: "hsl(var(--card))",
-              color: "hsl(var(--card-foreground))",
-              border: "1px solid hsl(var(--border))",
-            },
-            success: {
-              iconTheme: {
-                primary: "hsl(var(--primary))",
-                secondary: "hsl(var(--primary-foreground))",
-              },
-            },
-            error: {
-              iconTheme: {
-                primary: "hsl(var(--destructive))",
-                secondary: "hsl(var(--destructive-foreground))",
-              },
-            },
-          }}
-        />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

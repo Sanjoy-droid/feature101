@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PostCard from "@/components/PostCard";
 import PostModal from "@/components/PostModal";
+import DeleteDialog from "@/components/DeleteDialog";
 import { Post } from "@/types";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -38,6 +39,13 @@ export default function PostManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteDialog, setDeleteDialog] = useState<{
+    open: boolean;
+    post: Post | null;
+  }>({
+    open: false,
+    post: null,
+  });
 
   useEffect(() => {
     loadPosts();
@@ -63,10 +71,14 @@ export default function PostManager() {
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Delete this post?")) return;
+  const handleDeleteClick = (post: Post) => {
+    setDeleteDialog({ open: true, post });
+  };
 
-    const deletePromise = api.deletePost(id);
+  const handleDeleteConfirm = async () => {
+    if (!deleteDialog.post) return;
+
+    const deletePromise = api.deletePost(deleteDialog.post._id);
 
     toast.promise(deletePromise, {
       loading: "Deleting...",
@@ -76,7 +88,8 @@ export default function PostManager() {
 
     try {
       await deletePromise;
-      setPosts(posts.filter((p) => p._id !== id));
+      setPosts(posts.filter((p) => p._id !== deleteDialog.post!._id));
+      setDeleteDialog({ open: false, post: null });
     } catch (err) {
       console.error("Delete error:", err);
     }
@@ -142,7 +155,7 @@ export default function PostManager() {
               className="pl-10"
             />
           </div>
-          <Button onClick={handleCreate}>
+          <Button className="cursor-pointer" onClick={handleCreate}>
             <Plus className="w-5 h-5 mr-2" />
             New Post
           </Button>
@@ -161,7 +174,7 @@ export default function PostManager() {
                 key={post._id}
                 post={post}
                 onEdit={() => handleEdit(post)}
-                onDelete={() => handleDelete(post._id)}
+                onDelete={() => handleDeleteClick(post)}
               />
             ))
           )}
@@ -174,6 +187,13 @@ export default function PostManager() {
             onSubmit={handleSubmit}
           />
         )}
+
+        <DeleteDialog
+          open={deleteDialog.open}
+          onOpenChange={(open) => setDeleteDialog({ open, post: null })}
+          onConfirm={handleDeleteConfirm}
+          title={deleteDialog.post?.title || ""}
+        />
       </div>
     </div>
   );

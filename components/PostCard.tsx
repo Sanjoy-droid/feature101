@@ -23,14 +23,19 @@ export default function PostCard({ post, onEdit, onDelete }: PostCardProps) {
             </p>
           </div>
           <div className="flex gap-2 ml-4">
-            <Button onClick={onEdit} variant="ghost" size="icon">
+            <Button
+              className="cursor-pointer"
+              onClick={onEdit}
+              variant="ghost"
+              size="icon"
+            >
               <Edit2 className="w-5 h-5" />
             </Button>
             <Button
               onClick={onDelete}
               variant="ghost"
               size="icon"
-              className="text-destructive hover:text-destructive"
+              className="text-destructive hover:text-destructive cursor-pointer"
             >
               <Trash2 className="w-5 h-5" />
             </Button>
