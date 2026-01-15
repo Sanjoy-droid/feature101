@@ -1,4 +1,3 @@
-// models/Post.ts
 import mongoose, { Schema, models, Model } from "mongoose";
 import { Post } from "@/types";
 
