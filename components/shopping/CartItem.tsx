@@ -13,35 +13,59 @@ export default function CartItem({
   onRemove,
 }: CartItemProps) {
   return (
-    <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg">
-      <div className="text-4xl">{item.image}</div>
-      <div className="flex-1">
-        <h4 className="font-semibold">{item.name}</h4>
-        <p className="text-sm text-gray-600">${item.price.toFixed(2)} each</p>
+    <div className="flex items-start gap-4 p-4 bg-muted/30 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+      {/* Product Image */}
+      <div className="flex-shrink-0 w-16 h-16 bg-background rounded-lg border border-border flex items-center justify-center">
+        <span className="text-3xl">{item.image}</span>
       </div>
+
+      {/* Product Info */}
+      <div className="flex-1 min-w-0">
+        <h4 className="font-semibold text-foreground text-sm leading-tight mb-1">
+          {item.name}
+        </h4>
+        <p className="text-xs text-muted-foreground mb-2">{item.category}</p>
+        <p className="text-sm font-medium text-foreground">
+          ${item.price.toFixed(2)}{" "}
+          <span className="text-muted-foreground">each</span>
+        </p>
+      </div>
+
+      {/* Quantity Controls */}
       <div className="flex items-center gap-2">
         <button
           onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
-          className="p-1 rounded bg-gray-200 hover:bg-gray-300 transition-colors"
+          className="w-7 h-7 rounded-md border border-input hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-colors"
         >
-          <Minus className="w-4 h-4" />
+          <Minus className="w-3.5 h-3.5" />
         </button>
-        <span className="w-8 text-center font-semibold">{item.quantity}</span>
+
+        <span className="w-8 text-center font-semibold text-sm text-foreground">
+          {item.quantity}
+        </span>
+
         <button
           onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
-          className="p-1 rounded bg-gray-200 hover:bg-gray-300 transition-colors"
+          className="w-7 h-7 rounded-md border border-input hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-colors"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
         </button>
       </div>
-      <div className="font-bold text-lg w-20 text-right">
-        ${(item.price * item.quantity).toFixed(2)}
+
+      {/* Total Price */}
+      <div className="text-right">
+        <p className="font-bold text-foreground">
+          ${(item.price * item.quantity).toFixed(2)}
+        </p>
       </div>
+
+      {/* Remove Button */}
       <button
         onClick={() => onRemove(item.productId)}
-        className="p-2 text-red-500 hover:bg-red-50 rounded transition-colors"
+        className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+        aria-label="Remove item"
       >
-        <Trash2 className="w-5 h-5" />
+        <Trash2 className="w-4 h-4" />
       </button>
     </div>
   );

@@ -32,13 +32,22 @@ interface CartStore {
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
   clearCart: () => Promise<void>;
-
-  // Computed values
-  totalItems: number;
-  subtotal: number;
-  tax: number;
-  total: number;
 }
+
+// Computed selectors (outside store for reactivity)
+export const useCartTotals = () => {
+  const cart = useCartStore((state) => state.cart);
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+  const tax = subtotal * 0.08;
+  const total = subtotal + tax;
+
+  return { totalItems, subtotal, tax, total };
+};
 
 // Generate session ID for guest users
 const generateSessionId = () => {
@@ -138,25 +147,6 @@ export const useCartStore = create<CartStore>()(
           console.error("Failed to clear cart:", error);
           toast.error("Failed to clear cart");
         }
-      },
-
-      get totalItems() {
-        return get().cart.reduce((sum, item) => sum + item.quantity, 0);
-      },
-
-      get subtotal() {
-        return get().cart.reduce(
-          (sum, item) => sum + item.price * item.quantity,
-          0,
-        );
-      },
-
-      get tax() {
-        return get().subtotal * 0.08;
-      },
-
-      get total() {
-        return get().subtotal + get().tax;
       },
     }),
     {

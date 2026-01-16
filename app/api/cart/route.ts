@@ -74,7 +74,6 @@ export async function POST(request: NextRequest) {
     const existingItemIndex = cart.items.findIndex(
       (item) => item.productId === productId,
     );
-
     if (existingItemIndex > -1) {
       // Check stock before incrementing
       if (cart.items[existingItemIndex].quantity >= product.stock) {
