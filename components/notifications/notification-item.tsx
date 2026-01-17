@@ -43,8 +43,8 @@ export function NotificationItem({
   const { markAsRead, removeNotification } = useNotificationStore();
   const Icon = typeIcons[notification.type];
 
-  const handleMarkAsRead = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleMarkAsRead = async (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (notification.read) return;
 
     try {
@@ -69,7 +69,7 @@ export function NotificationItem({
 
   const handleClick = () => {
     if (!notification.read) {
-      handleMarkAsRead({} as React.MouseEvent);
+      handleMarkAsRead();
     }
     if (notification.link && onClose) {
       onClose();
