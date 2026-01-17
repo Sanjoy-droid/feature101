@@ -32,7 +32,7 @@ export default function Page() {
       <header className="border-b">
         <div className="container flex h-16 items-center justify-between px-4">
           <h1 className="text-xl font-semibold">Notifications Demo</h1>
-          <NotificationBell userId={userId} pollInterval={30000} />
+          <NotificationBell userId={userId} />
         </div>
       </header>
 

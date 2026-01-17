@@ -1,3 +1,4 @@
+// src/app/api/notifications/route.ts (Updated with WebSocket)
 import { NextRequest, NextResponse } from "next/server";
 import { NotificationService } from "@/lib/notifications/notification-service";
 import dbConnect from "@/lib/db";
@@ -57,6 +58,21 @@ export async function POST(request: NextRequest) {
       type: type || "info",
       link,
     });
+
+    // 🚀 REAL-TIME: Push notification via WebSocket
+    if (global.io) {
+      global.io.to(`user:${userId}`).emit("notification", {
+        _id: notification._id.toString(),
+        userId: notification.userId,
+        title: notification.title,
+        message: notification.message,
+        type: notification.type,
+        read: notification.read,
+        link: notification.link,
+        createdAt: notification.createdAt.toISOString(),
+      });
+      console.log(`📨 Pushed notification to user:${userId}`);
+    }
 
     return NextResponse.json(notification, { status: 201 });
   } catch (error) {

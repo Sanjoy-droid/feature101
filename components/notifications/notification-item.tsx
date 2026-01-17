@@ -103,7 +103,7 @@ export function NotificationItem({
     <div
       className={cn(
         "group flex items-start gap-3 px-4 py-3 transition-colors",
-        !notification.read && "bg-accent/50",
+        !notification.read && "bg-accent ring-1 ring-primary/40 font-medium",
         notification.link && "cursor-pointer hover:bg-accent",
       )}
       onClick={handleClick}
