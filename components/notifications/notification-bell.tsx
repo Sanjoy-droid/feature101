@@ -61,7 +61,6 @@ export function NotificationBell({ userId }: NotificationBellProps) {
 
     // Listen for real-time notifications
     const handleNotification = (notification: Notification) => {
-      console.log("🔔 Real-time notification received:", notification);
       addNotification(notification);
 
       // Optional: Show toast for new notifications

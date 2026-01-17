@@ -1,16 +1,15 @@
-// src/app/api/notifications/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { NotificationService } from "@/lib/notifications/notification-service";
 import dbConnect from "@/lib/db";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await dbConnect();
 
-    const { id } = params;
+    const { id } = await params;
 
     await NotificationService.deleteNotification(id);
 

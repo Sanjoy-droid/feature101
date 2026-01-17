@@ -1,4 +1,3 @@
-// src/app/api/notifications/route.ts (Updated with WebSocket)
 import { NextRequest, NextResponse } from "next/server";
 import { NotificationService } from "@/lib/notifications/notification-service";
 import dbConnect from "@/lib/db";

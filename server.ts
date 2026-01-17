@@ -1,4 +1,3 @@
-// server.ts (Root level - for custom server)
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
