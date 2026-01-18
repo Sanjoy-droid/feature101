@@ -53,14 +53,17 @@ export const useShare = () => {
     [addShare],
   );
 
-  const shareViaEmail = useCallback(
+  const shareViaGmail = useCallback(
     ({ url, title, text }: ShareOptions) => {
       const subject = title || "Check this out!";
       const body = text ? `${text}\n\n${url}` : url;
-      const emailUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = emailUrl;
+
+      // Gmail web compose URL
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      window.open(gmailUrl, "_blank");
       addShare("email", url);
-      toast.success("Opened email client");
+      toast.success("Opened Gmail");
     },
     [addShare],
   );
@@ -110,7 +113,7 @@ export const useShare = () => {
     shareToFacebook,
     shareToLinkedIn,
     shareToWhatsApp,
-    shareViaEmail,
+    shareViaGmail,
     copyToClipboard,
     nativeShare,
     canUseNativeShare,

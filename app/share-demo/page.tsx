@@ -80,7 +80,7 @@ export default function ShareDemoPage() {
                   <p className="mt-2 text-lg font-bold">$299.99</p>
                 </div>
                 <ShareButton
-                  url="https://yourstore.com/headphones-pro"
+                  url="https://www.leafstudios.in/products/leaf-bass-pro-bluetooth-headphones"
                   title="Awesome Headphones Pro"
                   text="Check out these amazing headphones!"
                   variant="outline"
@@ -106,7 +106,7 @@ export default function ShareDemoPage() {
                   </p>
                 </div>
                 <ShareButton
-                  url="https://webdevconf.com/2026"
+                  url="https://webdevconf.com"
                   title="Web Dev Conference 2026"
                   text="Join me at Web Dev Conference 2026!"
                   variant="default"

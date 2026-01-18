@@ -46,7 +46,7 @@ export function ShareButton({
     shareToFacebook,
     shareToLinkedIn,
     shareToWhatsApp,
-    shareViaEmail,
+    shareViaGmail,
     copyToClipboard,
     nativeShare,
     canUseNativeShare,
@@ -118,7 +118,7 @@ export function ShareButton({
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => handleShare(shareViaEmail)}>
+        <DropdownMenuItem onClick={() => handleShare(shareViaGmail)}>
           <Mail className="mr-2 h-4 w-4" />
           Email
         </DropdownMenuItem>
